@@ -3,6 +3,7 @@ import { v4 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 
 import getTodayDate from '../dateProvider/dateProvider';
+import '../styles/form.scss';
 
 const initialState = { taskName: '', taskOwner: '', taskDescription: '', taskDeadline: '' };
 

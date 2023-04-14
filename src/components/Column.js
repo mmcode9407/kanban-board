@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Task from './Task';
 import BoardContext from '../context/context';
+import '../styles/column.scss';
 
 const Column = (props) => {
     const { tasks } = useContext(BoardContext);

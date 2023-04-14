@@ -1,0 +1,69 @@
+﻿@import 'variables.scss';
+
+.task {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgb(253, 171, 61);
+    
+    
+
+    &__title {
+        width: 100%;
+        padding: 5px;
+        font-size: $h3_fontSize;
+        text-align: center;
+        background-color: rgb(253, 171, 61);
+        
+    }
+
+    &__description, &__owner {
+        font-size: $p_fontSize;
+    }
+
+    &__description {
+    padding: 0 5px;
+    }
+
+    &__owner {
+        font-weight: 700;
+    }
+
+    &__deadline {
+        font-size: $p_fontSize-s;
+    }
+
+    &__buttons-box {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__button {
+        border: none;
+        background: none;
+        padding: 10px;
+        cursor: pointer;
+        
+        &:disabled {
+            cursor: not-allowed
+        }
+        
+        &-icon {
+            font-size: 2rem;
+            transition: color 0.3s;
+
+        }
+        
+        &:hover .task__button-icon {
+            color: rgba(26, 26, 26, 0.3);
+        }
+    }
+
+
+
+}

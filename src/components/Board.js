@@ -2,6 +2,8 @@
 import BoardContext from '../context/context';
 import Column from './Column';
 
+import '../styles/board.scss';
+
 const Board = () => {
     const { columns } = useContext(BoardContext);
 

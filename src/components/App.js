@@ -7,6 +7,9 @@ import BoardContext from '../context/context';
 import { defaultColumns, defaultTasks } from '../defaultData';
 import useStorage from '../hook';
 
+import '../styles/global.scss';
+import '../styles/app.scss';
+
 const App = () => {
     const [tasks, setTasks] = useState([]);
     const [columns, setNewColumns] = useState(defaultColumns);

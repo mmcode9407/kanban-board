@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForward, faBackward, faTrash } from '@fortawesome/free-solid-svg-icons';
 import BoardContext from '../context/context';
+import '../styles/task.scss';
 
 const Task = (props) => {
     const { tasks, setTasks, columns } = useContext(BoardContext);
@@ -41,30 +42,30 @@ const Task = (props) => {
     };
 
     return (
-        <li className="card">
-            <h3 className="card__title">{taskName}</h3>
-            <p className="card__description">{taskDescription}</p>
-            <p className="card__owner">{taskOwner}</p>
-            <p className="card__deadline">{taskDeadline}</p>
-            <div className="card__buttons-box">
+        <li className="task">
+            <h3 className="task__title">{taskName}</h3>
+            <p className="task__description">{taskDescription}</p>
+            <p className="task__owner">{taskOwner}</p>
+            <p className="task__deadline">{taskDeadline}</p>
+            <div className="task__buttons-box">
                 <button
-                    className="card__button"
+                    className="task__button"
                     type="button"
                     disabled={!couldTaskMove(-1)}
                     onClick={() => moveTask(-1, id)}
                 >
-                    <FontAwesomeIcon icon={faBackward} className="card__button-icon" />
+                    <FontAwesomeIcon icon={faBackward} className="task__button-icon" />
                 </button>
-                <button className="card__button" type="button" onClick={() => removeTask(id)}>
-                    <FontAwesomeIcon icon={faTrash} className="card__button-icon" />
+                <button className="task__button" type="button" onClick={() => removeTask(id)}>
+                    <FontAwesomeIcon icon={faTrash} className="task__button-icon" />
                 </button>
                 <button
-                    className="card__button"
+                    className="task__button"
                     type="button"
                     disabled={!couldTaskMove(1)}
                     onClick={() => moveTask(1, id)}
                 >
-                    <FontAwesomeIcon icon={faForward} className="card__button-icon" />
+                    <FontAwesomeIcon icon={faForward} className="task__button-icon" />
                 </button>
             </div>
         </li>
