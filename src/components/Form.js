@@ -1,13 +1,17 @@
-﻿import React, { useReducer } from 'react';
+﻿/* eslint-disable no-unused-vars */
+import React, { useState, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 
 import getTodayDate from '../dateProvider/dateProvider';
+import validateForm from '../validateForm';
 import '../styles/form.scss';
 
 const initialState = { taskName: '', taskOwner: '', taskDescription: '', taskDeadline: '' };
 
 const Form = (props) => {
+    const [errors, setErrors] = useState([]);
+
     const reducer = (state, action) => {
         if (action.type === 'CLEAR') {
             return action.payload;
@@ -27,16 +31,31 @@ const Form = (props) => {
         e.preventDefault();
         const { onSubmit } = props;
 
-        const preparedTask = {
-            id: uuid(),
-            idColumn: 1,
-            ...state,
-        };
-        onSubmit(preparedTask);
-        clearInputs();
+        const errorsList = validateForm(state);
+
+        if (errorsList === 0) {
+            const preparedTask = {
+                id: uuid(),
+                idColumn: 1,
+                ...state,
+            };
+            onSubmit(preparedTask);
+            clearInputs();
+        }
+
+        setErrors(errorsList);
     };
 
-    // form
+    const showError = (label) => {
+        const errorsByLabel = errors.filter((item) => item.includes(label));
+
+        return errorsByLabel.map((err) => (
+            <p className="form__controls-errors-text" key={uuid()}>
+                {err}
+            </p>
+        ));
+    };
+
     return (
         <form className="form" onSubmit={submitHandler}>
             <h2 className="form__title">Dodaj zadanie:</h2>
@@ -53,6 +72,9 @@ const Form = (props) => {
                             placeholder="Min 3 znaki..."
                             onChange={(e) => dispatch(e.target)}
                         />
+                        {errors.length > 0 ? (
+                            <div className="form__controls-errors">{showError('Tytuł zadania')}</div>
+                        ) : null}
                     </label>
                     <label className="form__controls-label" htmlFor="taskOwner">
                         Odpowiedzialny:
@@ -65,6 +87,9 @@ const Form = (props) => {
                             placeholder="Min 3 znaki..."
                             onChange={(e) => dispatch(e.target)}
                         />
+                        {errors.length > 0 ? (
+                            <div className="form__controls-errors">{showError('Odpowiedzialny')}</div>
+                        ) : null}
                     </label>
                     <label className="form__controls-label" htmlFor="taskOwner">
                         Termin:
@@ -77,6 +102,7 @@ const Form = (props) => {
                             value={state.taskDeadline}
                             onChange={(e) => dispatch(e.target)}
                         />
+                        {errors.length > 0 ? <div className="form__controls-errors">{showError('Termin')}</div> : null}
                     </label>
                 </div>
                 <div className="form__controls">
@@ -89,6 +115,9 @@ const Form = (props) => {
                             value={state.taskDescription}
                             onChange={(e) => dispatch(e.target)}
                         />
+                        {errors.length > 0 ? (
+                            <div className="form__controls-errors">{showError('Opis zadania')}</div>
+                        ) : null}
                     </label>
                 </div>
                 <button className="form__button" type="submit">
