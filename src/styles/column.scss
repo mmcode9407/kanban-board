@@ -3,7 +3,7 @@
 .column {
     min-width: 320px;
     max-width: 320px;
-    box-shadow: 0 0 3px 0 rgb(0, 0, 0);
+    box-shadow: 0 0 3px 0 $grayColor;
     border-radius: 10px;
     overflow: hidden;
 
@@ -12,8 +12,8 @@
         align-items: center;
         justify-content: center;
         padding: 20px 20px;
-        border-bottom: 2px solid rgb(0, 0, 0);
-        background-color: rgb(196, 196, 196);
+        border-bottom: 2px solid $blackColor;
+        background-color: $grayColor;
 
         &-title {
             font-size: $h2_fontSize;

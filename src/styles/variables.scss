@@ -10,8 +10,13 @@ $p_fontSize: 1.6rem;
 $p_fontSize-s: 1.2rem;
 
 // COLORS
+$blackColor: rgb(0, 0, 0);
+$grayColor: rgb(196, 196, 196);
 $pendingColor: rgb(253, 171, 61);
 $doingColor: rgb(226, 68, 92);
 $testingColor: rgb(85, 89, 223);
 $doneColor: rgb(0, 200, 117);
-$errorColor: rgb(255, 0, 0)
+$errorColor: rgb(255, 0, 0);
+$buttonIconColor-hover: rgba(26, 26, 26, 0.3);
+$buttonBgColor: rgb(0, 140, 255);
+$buttonBgColor-hover: rgb(0, 107, 194);

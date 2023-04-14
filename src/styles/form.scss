@@ -5,7 +5,7 @@
     margin-top: 10px;
     padding: 20px;
     font-size: $p_fontSize;
-    box-shadow: 0 0 5px 0 gray;
+    box-shadow: 0 0 5px 0 $grayColor;
     border-radius: 10px;
     
     &__title {
@@ -16,8 +16,9 @@
     &__overload-error {
         margin-bottom: 20px;
         font-size: $p_fontSize;
-        color: rgb(255, 0, 0);
+        color: $errorColor;
         text-align: center;
+        line-height: 1.2;
     }
 
     &__controls-box {
@@ -47,7 +48,7 @@
         padding: 5px;
         font-size: 1.2rem;
         font-family: $fontFamily;
-        border: 1px solid rgb(197, 197, 197);
+        border: 1px solid $grayColor;
         border-radius: 5px;
         
             &--textarea {
@@ -60,7 +61,7 @@
             margin-top: 5px ;
             font-size: 1rem;
             font-weight: 400;
-            color: rgb(255, 0, 0);
+            color: $errorColor;
         }     
     }
 
@@ -69,7 +70,7 @@
         padding: 10px 20px;
         display: block;
         font-size: 2.5rem;
-        background-color: rgb(0, 140, 255);
+        background-color: $buttonBgColor;
         color: #fff;
         border: none;
         border-radius: 8px;
@@ -77,7 +78,12 @@
         cursor: pointer;
 
         &:hover {
-            background-color: rgb(0, 107, 194);
+            background-color: $buttonBgColor-hover;
+        }
+
+        &:disabled {
+            background-color: $grayColor;
+            cursor: not-allowed
         }
     }
 }

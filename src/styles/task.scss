@@ -96,7 +96,7 @@
         }
         
         &:hover .task__button-icon {
-            color: rgba(26, 26, 26, 0.3);
+            color: $buttonIconColor-hover;
         }
     }
 
