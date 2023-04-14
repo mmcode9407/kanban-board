@@ -1,5 +1,5 @@
 ﻿import React from 'react';
 
-const BoardContext = React.createContext();
+export const BoardContext = React.createContext();
+export const FormContext = React.createContext();
 
-export default BoardContext;

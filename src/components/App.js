@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Form from './Form';
 import Board from './Board';
-import BoardContext from '../context/context';
+import { BoardContext, FormContext } from '../context/context';
 import { defaultColumns, defaultTasks } from '../defaultData';
 import useStorage from '../hook';
 
@@ -16,6 +16,7 @@ const App = () => {
     const [setStorageTasks, getStorageTasks] = useStorage('tasks');
 
     const { Provider: BoardProvider } = BoardContext;
+    const { Provider: FormProvider } = FormContext;
 
     const addTask = (task) => {
         setTasks([...tasks, task]);
@@ -40,7 +41,9 @@ const App = () => {
     return (
         <div className="wrapper app">
             <h1 className="app__title">Kanban Board</h1>
-            <Form onSubmit={addTask} />
+            <FormProvider value={{ addTask, tasks, columns }}>
+                <Form />
+            </FormProvider>
             <BoardProvider value={{ tasks, setTasks, columns }}>
                 <Board />
             </BoardProvider>

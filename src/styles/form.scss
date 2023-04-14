@@ -13,6 +13,13 @@
         font-size: $h2_fontSize;
     }
 
+    &__overload-error {
+        margin-bottom: 20px;
+        font-size: $p_fontSize;
+        color: rgb(255, 0, 0);
+        text-align: center;
+    }
+
     &__controls-box {
         display: flex;
         justify-content: space-between;

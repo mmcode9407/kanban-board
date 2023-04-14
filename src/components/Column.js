@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 
 import Task from './Task';
-import BoardContext from '../context/context';
+import { BoardContext } from '../context/context';
 import '../styles/column.scss';
 
 const Column = (props) => {

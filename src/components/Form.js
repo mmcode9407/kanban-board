@@ -1,15 +1,17 @@
 ﻿/* eslint-disable no-unused-vars */
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useContext } from 'react';
 import { v4 as uuid } from 'uuid';
 import PropTypes from 'prop-types';
 
 import getTodayDate from '../dateProvider/dateProvider';
 import validateForm from '../validateForm';
+import { FormContext } from '../context/context';
 import '../styles/form.scss';
 
 const initialState = { taskName: '', taskOwner: '', taskDescription: '', taskDeadline: '' };
 
-const Form = (props) => {
+const Form = () => {
+    const { addTask, tasks, columns } = useContext(FormContext);
     const [errors, setErrors] = useState([]);
 
     const reducer = (state, action) => {
@@ -27,19 +29,29 @@ const Form = (props) => {
         dispatch({ type: 'CLEAR', payload: initialState });
     };
 
+    const isPendingColumnFull = () => {
+        const tasksInPendingColumn = tasks.filter((task) => task.idColumn === 1);
+        const pendingColumn = columns.find((column) => column.id === 1);
+
+        if (tasksInPendingColumn.length === pendingColumn.limit) {
+            return true;
+        }
+
+        return false;
+    };
+
     const submitHandler = (e) => {
         e.preventDefault();
-        const { onSubmit } = props;
 
         const errorsList = validateForm(state);
 
-        if (errorsList === 0) {
+        if (errorsList.length === 0 && !isPendingColumnFull()) {
             const preparedTask = {
                 id: uuid(),
                 idColumn: 1,
                 ...state,
             };
-            onSubmit(preparedTask);
+            addTask(preparedTask);
             clearInputs();
         }
 
@@ -59,6 +71,13 @@ const Form = (props) => {
     return (
         <form className="form" onSubmit={submitHandler}>
             <h2 className="form__title">Dodaj zadanie:</h2>
+            {isPendingColumnFull() && (
+                <p className="form__overload-error">
+                    Kolumna z zadaniami oczekującymi jest pełna.
+                    <br />
+                    Przenieś jedno z zadań aby dodać kolejne...
+                </p>
+            )}
             <div className="form__controls-box">
                 <div className="form__controls">
                     <label className="form__controls-label" htmlFor="taskName">
@@ -120,7 +139,7 @@ const Form = (props) => {
                         ) : null}
                     </label>
                 </div>
-                <button className="form__button" type="submit">
+                <button className="form__button" type="submit" disabled={isPendingColumnFull()}>
                     +
                 </button>
             </div>
@@ -129,7 +148,3 @@ const Form = (props) => {
 };
 
 export default Form;
-
-Form.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-};

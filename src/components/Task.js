@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faForward, faBackward, faTrash } from '@fortawesome/free-solid-svg-icons';
-import BoardContext from '../context/context';
+import { BoardContext } from '../context/context';
 import '../styles/task.scss';
 
 const Task = (props) => {
@@ -80,7 +80,7 @@ Task.propTypes = {
         taskDescription: PropTypes.string.isRequired,
         taskOwner: PropTypes.string.isRequired,
         taskDeadline: PropTypes.string.isRequired,
-        id: PropTypes.number.isRequired,
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
         idColumn: PropTypes.number.isRequired,
     }).isRequired,
 };

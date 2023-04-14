@@ -1,5 +1,5 @@
 ﻿import React, { useContext } from 'react';
-import BoardContext from '../context/context';
+import { BoardContext } from '../context/context';
 import Column from './Column';
 
 import '../styles/board.scss';
