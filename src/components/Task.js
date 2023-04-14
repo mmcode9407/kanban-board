@@ -41,8 +41,23 @@ const Task = (props) => {
         setTasks(tasksAfterRemove);
     };
 
+    const addClass = () => {
+        switch (idColumn) {
+            case 1:
+                return 'task--pending';
+            case 2:
+                return 'task--doing';
+            case 3:
+                return 'task--testing';
+            case 4:
+                return 'task--done';
+            default:
+                return null;
+        }
+    };
+
     return (
-        <li className="task">
+        <li className={`task ${addClass()}`}>
             <h3 className="task__title">{taskName}</h3>
             <p className="task__description">{taskDescription}</p>
             <p className="task__owner">{taskOwner}</p>
