@@ -91,8 +91,8 @@ export const defaultColumns = [
 Thanks to this and **the variables stored in the `variables.scss` module**, the user **can customize some elements of the application's appearance** (e.g. font family, font sizes, or colors)
     
 ## 💭 Improvements for future
-- add rendering input dynamically;
-- prepare the app for mobile
+- add dynamic input rendering;
+- adjust the app for use on mobile devices;
 
 ## 🙋‍♂️ Feel free to contact me
 If you have any questions feel free to get in touch with me (contact in the [profile readme](https://github.com/mmcode9407)).
