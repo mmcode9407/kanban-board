@@ -1,98 +1,95 @@
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+# Kanban Board
 
-&nbsp;
+![Kanban Board work-animation](./assets/kanban-board.gif)
+
+### Hi there! 👋 <br/>
+Thanks for viewing my repository!
+Let me introduce you to my Kanban Board app built with **React** combined with  [**ESLint Airbnb rules**](https://github.com/airbnb/javascript). <br/>
+
+Kanban work is a methodology widely used in many companies to develop software more efficiently. If you want to know more about it, I encourage you to read the article [here](https://www.atlassian.com/agile/kanban)
+
+## 📎&nbsp; Features
+
+- Creating *new tasks* with *description*;
+- *Assign a person* to the task;
+- Set *due date and time* of the task;
+- Form validation;
+- Task management:
+    - *moving tasks between columns*;
+    - *save data in localStorage*;   
+    - *delete tasks*;
+    
+    
+## 🔧&nbsp; Built with
+![JavaScript](https://img.shields.io/badge/-JavaScript-0A1A2F?style=for-the-badge&logo=JavaScript&logoColor=F7DF1E)
+![React](https://img.shields.io/badge/-React-0A1A2F?style=for-the-badge&logo=React&logoColor=61DAFB)
+![HTML5](https://img.shields.io/badge/-HTML5-0A1A2F?style=for-the-badge&logo=HTML5&logoColor=E34F26)
+![CSS3](https://img.shields.io/badge/-CSS3-0A1A2F?style=for-the-badge&logo=CSS3&logoColor=1572B6)
+![Sass](https://img.shields.io/badge/-Sass-0A1A2F?style=for-the-badge&logo=Sass&logoColor=CC6699) <br/>
+![BEM](https://img.shields.io/badge/-BEM-0A1A2F?style=for-the-badge&logo=BEM&logoColor=2dd4bf)
+![Webpack](https://img.shields.io/badge/-Webpack-0A1A2F?style=for-the-badge&logo=Webpack&logoColor=8DD6F9)
+![Babel](https://img.shields.io/badge/-Babel-0A1A2F?style=for-the-badge&logo=Babel&logoColor=F9DC3E)
+![Node.js](https://img.shields.io/badge/Node.JS-0A1A2F?style=for-the-badge&logo=Node.js&logoColor=339933)
+![NPM](https://img.shields.io/badge/NPM-0A1A2F?style=for-the-badge&logo=npm&logoColor=CB3837)
 
 
-# React Kanban
 
-Otrzymałeś zlecenie, które polega na implementacji systemu Kanban.
+## ⚙️&nbsp; Installation
 
-Idealnie się składa, ponieważ właśnie zamierzałeś poznać tę metodykę! Słyszałeś, że często jest wykorzystywana w działach IT i nie chcesz być zielony, gdy trafisz do korzystającego z niej zespołu.
+The project uses [node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/). To run the app on your machine you should install all dependencies. Then create a localhost port and run your web explorer.
 
-Klient prosi o rozwiązanie zbliżone do tego: [kanbanblog.com/explained/](https://kanbanblog.com/explained/).
+Let's start with installing all dependencies. Move to the app main workspace and run:
 
-Pamiętaj, że zawsze zanim zajmiesz się planowaniem i wdrażaniem, powinieneś zgłębić wiedzę na dany temat. Proponuję, abyś zapoznał się z [4 filmami od Atlassian](https://www.youtube.com/watch?v=iVaFVa7HYj4&list=PLaD4FvsFdarR3oF1gp5_NmnlL-BQIE9sW&index=1), które pozwolą Ci lepiej zrozumieć koncepcję Kanban. Warto też przeczytać [artykuł w języku polskim](https://productvision.pl/2015/gdzie-scrum-nie-moze-tam-kanban-posle/), aby ograniczyć błędy związane z barierą językową.
+    npm i
 
-Należy również sprawdzić [konkurencję](https://kanbantool.com/pl/), na której możesz się wzorować.
+To create a localhost port you should type:
 
+    npm run start
 
-## Założenia
+Your Kanban Board is ready at port 8080.
 
-Na początku zawsze dobrze określić podstawowe wymagania dla [MVP](http://www.biznesowerewolucje.com/mvp-minimum-viable-product-praktycznie/). W naszym przypadku może to być:
+    http://localhost:8080/
 
-- tablica z określonymi kolumnami i limitem zadań
-- zadania z informacjami takimi jak:
-    - nazwa zadania
-    - aktualna kolumna
-    - użytkownik (osoba odpowiedzialna)
-- możliwość przemieszczania zadań.
+## 🤔&nbsp; Solutions provided in the project
 
-### Przechowywanie danych
+- The app uses modern React features like **Hooks** and **Context API**. The entire app has been divided into components and all logic is maintained in `App.js`. It allows moving tasks between columns if the limit in the next or previous column is not exceeded.
 
-Na tym etapie chcemy wykorzystać najszybszą do implementacji możliwość zapisywania informacji o zadaniach. Dlatego wybór padł na [localStorage](http://kursjs.pl/kurs/storage/storage.php). W ten sposób będzie można testować rozwiązanie, nie przejmując się np. zewnętrzną bazą danych.
+- The `<App/>` component uses the **useState** hook for store tasks. `<Task/>` components are rendered based on this. State data is provided with `<Form/>` which is properly validated before sending. `<App/>` provides context to the `<Task/>`, `<Column/>`, and `<Form/>` where they are consumed.
 
-Pracę ułatwiłby Ci hook, który udostępniałby metody umożliwiające zapis i odczyt danych z localStorage, np.:
+- The `useReducer` hook is used to control the form with user inputs. Depending on the action, it updates the state with user inputs or clears the inputs.
 ```
-const [getItem, setItem] = useStorage('name');
+const reducer = (state, action) => {
+    if (action.type === 'CLEAR') {
+        return action.payload;
+    }
+    return {
+        ...state,
+        [action.name]: action.name === 'taskDeadline' ? action.value.replace('T', ' ') : action.value,
+    };
+};
 ```
 
-Dodatkowo przy pierwszym uruchomieniu tablicy należałoby pobrać dane z localStorage i przekazać je do wnętrza aplikacji za pomocą Context API. Jeśli takich danych nie ma, to ustawiamy wartości początkowe.
-
-Trzeba się też zastanowić nad strukturą zapisywanych danych.
-
-Musimy przechowywać informacje o kolumnach: maksymalną liczbę zadań, nazwę czy identyfikator, np.:
-```js
-[
-    {id: 1, name: 'Pending', limit: 4},
-    {id: 2, name: 'Analysis - Doing', limit: 3},
-    {id: 3, name: 'Analysis - Done', limit: 2},
-    // ...
-]
-``` 
-
-Podobną strukturę mogą mieć zadania:
-```js
-[
-    {id: 1, name: 'Task1', idColumn: 1, user: 'Anna'},
-    {id: 2, name: 'Task2', idColumn: 1, user: 'Anna'},
-    {id: 3, name: 'Task3', idColumn: 1, user: 'Anna'},
-    // ...
-]
+- I use **localStorage** for storing data. For this purpose, I create my own hook called `useStorage` that allows you to work with localStorage (saving and downloading data). Data is retrieved from localStorage when the app is mounted and is saved when the browser tab is going to be closed. The data is also saved when working with tasks (move between columns or delete the task).
+```
+const [setStorageTasks, getStorageTasks] = useStorage('tasks');
 ```
 
-Ponieważ na początku staramy się maksymalnie wszystko uprosić, uznajemy, że `id` kolumn to kolejne liczby naturalne. Przemieszczenie zadań między kolumnami odbywa się przy pomocy dodania lub odjęcia cyfry 1 od aktualnej wartości `id` kolumny (`idColumn`).
+- It is also worth mentioning that the columns are rendered dynamically from a separate file. Thanks to this, the user can independently adjust the number, name, and limit of columns according to his own preferences.
+```
+export const defaultColumns = [
+    { id: 1, name: 'Oczekujące', limit: 4 },
+    { id: 2, name: 'W trakcie', limit: 3 },
+    { id: 3, name: 'Testowanie', limit: 2 },
+    { id: 4, name: 'Zrobione', limit: 4 },
+];
+```
 
-### Komponenty
+- The UI has been designed in a simple and minimalist way. The styles were added thanks to the CSS preprocessor called [**SASS**](https://sass-lang.com/).<br/>
+Thanks to this and the variables stored in the `variables.scss` module, the user can customize some elements of the application's appearance (e.g. font family, font sizes, or colors)
+    
 
-Już na tym etapie powinieneś być świadomy, jakich komponentów będziesz potrzebować.
+## 🙋‍♂️&nbsp; Feel free to contact me
+If you have any questions feel free to get in touch with me (contact in the [profile readme](https://github.com/mmcode9407)).
 
-Nasza tablica może być komponentem o nazwie `<Board />`. Tablica składa się z kolumn, więc będziemy potrzebować komponentu `<Column />`. W każdej kolumnie wyświetlane są zadania – do tego przyda się `<Task />`. Musimy mieć możliwość tworzenia zadań, dlatego bez komponentu `<Form />` również się nie obędzie.
-
-## Kolejność działań
-
-#### Utwórz strukturę i komunikację między komponentami
-Najpierw utwórz strukturę danych wewnątrz Twojej aplikacji i za pomocą odpowiednich komponentów postaraj się wyświetlić wszystkie elementy. Dane możesz przechowywać w `state` w komponencie `<App />` i przekazywać je przez Context API. Pamiętaj, że w ten sposób możesz też przekazywać metody, które będą aktualizować dane w `state`.
-
-#### Sprawdź działanie z localStorage
-Zapisz dane w localStorage i sprawdź, czy nadal wszystko działa.
-
-#### Zaimplementuj przesuwanie zadań między kolumnami
-Gdy wszystko działa, wprowadź przemieszczanie zadań między kolumnami bez zapisywania danych w localStorage. Jak już mówiliśmy, wystarczy inkrementować lub dekrementować pole `idColumn`. Pamiętaj, aby sprawdzać, czy limit zadań w danej kolumnie nie został osiągnięty i czy kolumny następna oraz poprzednia istnieją.
-
-#### Stwórz formularz
-Teraz daj użytkownikowi możliwość tworzenia dodatkowych zadań przy pomocy formularza.
-
-#### Uzupełnij zapisywanie danych w localStorage
-Wprowadź aktualizację danych w localStorage. Zwróć uwagę, że każda zmiana `state` aplikacji powinna być zapisywana w localStorage.
-
-&nbsp;
-Do wykonania zadania możesz użyć [konfiguracji wykorzystującej ESLinta i Prettiera](https://github.com/devmentor-pl/react-helloworld-modern).
-
-
-&nbsp;
-
-> ⭐ ***README** to coś więcej niż opis. Poprzez nie **pokazujesz swoje mocne strony** – swoją dokładność, sposób myślenia i podejście do rozwiązywania problemów. Niech Twoje README pokaże, że masz **świetne predyspozycje do rozwoju!***
-> 
-> 🎁 *Zacznij od razu. Skorzystaj z **[szablonu README i wskazówek](https://github.com/devmentor-pl/readme-template)**.* 
+## 🙏&nbsp; Special thanks
+Special thanks to my [Mentor - devmentor.pl](https://devmentor.pl/) for providing me with the task and code review.
